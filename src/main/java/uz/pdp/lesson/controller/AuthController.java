@@ -11,19 +11,19 @@ import uz.pdp.lesson.entity.User;
 import uz.pdp.lesson.security.JwtUtils;
 import uz.pdp.lesson.service.UserService;
 
-@RequiredArgsConstructor
-@RestController
-@RequestMapping("api/auth")
-public class AuthController {
-    private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
-    private final JwtUtils jwtUtils;
-    @PostMapping("login")
-    public String login(@RequestBody LoginReq loginReq) {
-        User user = userService.findByEmail(loginReq.email()).get();
-        if(!passwordEncoder.matches(loginReq.password(),user.getPassword())) {
-            return "xatolik";
+    @RequiredArgsConstructor
+    @RestController
+    @RequestMapping("api/auth")
+    public class AuthController {
+        private final UserService userService;
+        private final PasswordEncoder passwordEncoder;
+        private final JwtUtils jwtUtils;
+        @PostMapping("login")
+        public String login(@RequestBody LoginReq loginReq) {
+            User user = userService.findByEmail(loginReq.email()).get();
+            if(!passwordEncoder.matches(loginReq.password(),user.getPassword())) {
+                return "xatolik";
+            }
+            return jwtUtils.generateToke(loginReq.email());
         }
-        return jwtUtils.generateToke(loginReq.email());
     }
-}

@@ -34,7 +34,6 @@ public class SecurityConfig {
                     .authenticated();
         });
 
-
         http.userDetailsService(customUserDetailsService);
 
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
