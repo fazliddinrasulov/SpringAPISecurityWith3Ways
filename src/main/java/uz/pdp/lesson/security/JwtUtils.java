@@ -13,7 +13,7 @@ import java.util.Date;
 @Component
 public class JwtUtils {
     public String generateToke(String email) {
-        return Jwts.builder()
+        return "Bearer "+ Jwts.builder()
                 .setSubject(email)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24))
